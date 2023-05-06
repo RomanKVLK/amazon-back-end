@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common'
+import {
+	BadRequestException,
+	Injectable,
+	NotFoundException
+} from '@nestjs/common'
 import { PrismaService } from 'src/prisma.service'
 import { returnUserObject } from './return-user.object'
 import { Prisma } from '@prisma/client'
@@ -36,7 +40,7 @@ export class UserService {
 		return user
 	}
 
-	async updatePrifile(id: number, dto: UserDto) {
+	async updateProfile(id: number, dto: UserDto) {
 		const isSameUser = await this.prisma.user.findUnique({
 			where: { email: dto.email }
 		})
@@ -61,5 +65,25 @@ export class UserService {
 		})
 	}
 
-	async toggleFavorite(userId: number, productId: number) {}
+	async toggleFavorite(userId: number, productId: number) {
+		const user = await this.byId(userId)
+
+		if (!user) throw new NotFoundException('User not found!')
+
+		const isExist = user.favorites.some(product => product.id === productId)
+
+		await this.prisma.user.update({
+			where: {
+				id: user.id
+			},
+			data: {
+				favorites: {
+					[isExist ? 'disconnect' : 'connect']: {
+						id: productId
+					}
+				}
+			}
+		})
+		return 'Success'
+	}
 }
