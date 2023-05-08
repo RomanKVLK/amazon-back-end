@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService } from 'src/prisma.service'
 import { generateSlug } from 'src/utils/generate-slug'
 import { CategoryDto } from './category.dto'
@@ -17,7 +17,7 @@ export class CategoryService {
 		})
 
 		if (!category) {
-			throw new Error('Category not found!')
+			throw new NotFoundException('Category not found!')
 		}
 
 		return category
