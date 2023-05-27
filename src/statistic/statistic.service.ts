@@ -23,10 +23,6 @@ export class StatisticService {
 			reviews: true
 		})
 
-		// return user.orders
-
-		// const totalAmount = await this.prisma.
-
 		return [
 			{
 				name: 'Orders',
