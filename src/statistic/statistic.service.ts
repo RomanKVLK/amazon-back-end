@@ -12,13 +12,7 @@ export class StatisticService {
 	async getMain(userId: number) {
 		const user = await this.userService.byId(userId, {
 			orders: {
-				select: {
-					items: {
-						select: {
-							price: true
-						}
-					}
-				}
+				select: {}
 			},
 			reviews: true
 		})
