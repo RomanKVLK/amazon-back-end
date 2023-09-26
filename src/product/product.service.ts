@@ -107,7 +107,7 @@ export class ProductService {
 		return product
 	}
 
-	async byCategory(categorySlug: string) {
+	async getByCategory(categorySlug: string) {
 		const product = await this.prisma.product.findMany({
 			where: {
 				category: {

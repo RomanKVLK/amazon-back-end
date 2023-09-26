@@ -38,7 +38,7 @@ export class ProductController {
 
 	@Get('by-category/:categorySlug')
 	async getProductByCategory(@Param('categorySlug') categorySlug: string) {
-		return this.productService.byCategory(categorySlug)
+		return this.productService.getByCategory(categorySlug)
 	}
 
 	@UsePipes(new ValidationPipe())
