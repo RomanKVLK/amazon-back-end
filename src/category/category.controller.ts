@@ -18,7 +18,7 @@ import { CategoryService } from './category.service'
 export class CategoryController {
 	constructor(private readonly categoryService: CategoryService) {}
 
-	@Get('profile')
+	@Get()
 	async getAll() {
 		return this.categoryService.getAll()
 	}
